@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Statistiques</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        nav { background: #2c3e50; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        nav a { color: white; margin-right: 20px; text-decoration: none; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'country_list' %}">🌍 Liste des pays</a>
+        <a href="{% url 'country_stats' %}">📊 Statistiques</a>
+    </nav>
+
+    <h1>Statistiques globales</h1>
+    <div class="card" style="text-align: center; margin-bottom: 20px;">
+        <h2>Total de pays en base : {{ total }}</h2>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Top 10 Population</h3>
+            <ul>
+                {% for c in top_population %}
+                    <li>{{ c.name_common }} ({{ c.population }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Top 10 Superficie</h3>
+            <ul>
+                {% for c in top_area %}
+                    <li>{{ c.name_common }} ({{ c.area }} km²)</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Par Région</h3>
+            <ul>
+                {% for r in regions %}
+                    <li>{{ r.region }} : {{ r.total }} pays</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

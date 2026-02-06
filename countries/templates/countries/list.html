@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Pays</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        nav { background: #2c3e50; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        nav a { color: white; margin-right: 20px; text-decoration: none; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .pagination { margin-top: 20px; padding: 10px; background: #f8f9fa; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'country_list' %}">🌍 Liste des pays</a>
+        <a href="{% url 'country_stats' %}">📊 Statistiques</a>
+    </nav>
+
+    <h1>Liste des pays importés</h1>
+
+    <form method="GET">
+        <input type="text" name="q" value="{{ query }}" placeholder="Rechercher par nom (début)...">
+        <select name="region">
+            <option value="">Toutes les régions</option>
+            {% for r in regions %}
+                <option value="{{ r }}" {% if r == region_filter %}selected{% endif %}>{{ r }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtrer</button>
+        <a href="{% url 'country_list' %}">Réinitialiser</a>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Drapeau</th>
+                <th>Nom</th>
+                <th>Capitale</th>
+                <th>Région</th>
+                <th>Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for country in countries %}
+            <tr>
+                <td><img src="{{ country.flag_url }}" width="40"></td>
+                <td><a href="{% url 'country_detail' country.cca3 %}">{{ country.name_common }}</a></td>
+                <td>{{ country.capital }}</td>
+                <td>{{ country.region }}</td>
+                <td>{{ country.population }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if countries.has_previous %}
+            <a href="?page=1&q={{ query }}&region={{ region_filter }}">&laquo; Début</a>
+            <a href="?page={{ countries.previous_page_number }}&q={{ query }}&region={{ region_filter }}">Précédent</a>
+        {% endif %}
+        <span>Page {{ countries.number }} sur {{ countries.paginator.num_pages }}</span>
+        {% if countries.has_next %}
+            <a href="?page={{ countries.next_page_number }}&q={{ query }}&region={{ region_filter }}">Suivant</a>
+            <a href="?page={{ countries.paginator.num_pages }}&q={{ query }}&region={{ region_filter }}">Fin &raquo;</a>
+        {% endif %}
+    </div>
+</body>
+</html>

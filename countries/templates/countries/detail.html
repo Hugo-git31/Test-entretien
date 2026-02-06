@@ -1,0 +1,7 @@
+<h1>{{ country.name_common }} ({{ country.cca3 }})</h1>
+<img src="{{ country.flag_url }}" width="200">
+<p><strong>Capitale :</strong> {{ country.capital }}</p>
+<p><strong>Région :</strong> {{ country.region }} ({{ country.subregion }})</p>
+<p><strong>Population :</strong> {{ country.population }} habitants</p>
+<p><strong>Superficie :</strong> {{ country.area }} km²</p>
+<a href="{% url 'country_list' %}">Retour à la liste</a>
