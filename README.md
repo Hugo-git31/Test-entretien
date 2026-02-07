@@ -1,5 +1,6 @@
 # Application de gestion de données géographiques (Rest Countries)
-Vidéo de présentation : https://docs.google.com/videos/d/1jYXhtYuBfZCUoCrQ0-ryyjaMKSnNBPBSDJUekDKCsbY/edit?usp=sharing
+Vidéo de présentation : https://docs.google.com/videos/d/1jYXhtYuBfZCUoCrQ0-ryyjaMKSnNBPBSDJUekDKCsbY/edit?usp=sharing (si la vidéo ne charge pas, cliquez sur "Lecture")
+
 Ce projet est une application Django permettant d'importer, de consulter et d'analyser les données des pays du monde via l'API Rest Countries.
 
 ## Fonctionnalités principales
