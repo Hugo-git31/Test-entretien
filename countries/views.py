@@ -18,7 +18,7 @@ def country_list(request):
 
     countries_list = countries_list.order_by('name_common')
 
-    # Pagination : 20 par page
+    # Création de pages
     paginator = Paginator(countries_list, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -37,7 +37,7 @@ def country_detail(request, cca3):
     country = get_object_or_404(Country, cca3=cca3)
     return render(request, 'countries/detail.html', {'country': country})
 
-# STATISTIQUES
+# STATS
 def country_stats(request):
     total = Country.objects.count()
     top_population = Country.objects.order_by('-population')[:10]

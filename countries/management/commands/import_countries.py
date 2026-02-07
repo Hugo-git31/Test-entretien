@@ -8,23 +8,23 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write("Début de l'importation...")
         
-        # L'URL imposée par l'exercice
+        # Lien pour récupérer les données
         url = "https://restcountries.com/v3.1/all?fields=name,cca2,cca3,capital,region,subregion,population,area,flags,currencies"
         
         try:
             response = requests.get(url)
-            response.raise_for_status() # Vérifie si la requête a réussi
+            response.raise_for_status() 
             data = response.json()
 
             for item in data:
-                # Extraction avec sécurité (get) pour éviter les erreurs si un champ manque
+              
                 cca3 = item.get('cca3')
                 name = item.get('name', {}).get('common', 'N/A')
-                # On prend la première capitale de la liste
+               
                 capitals_list = item.get('capital', [])
                 capital = capitals_list[0] if capitals_list else "N/A"
                 
-                # On utilise update_or_create pour remplir l'Etape 4 (pas de doublons)
+               
                 Country.objects.update_or_create(
                     cca3=cca3,
                     defaults={
